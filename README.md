@@ -19,11 +19,43 @@ for exploring them. See [db/README.md](db/README.md) for installation, dataset l
 and the browser; [curation/README.md](curation/README.md) covers reviewing additional
 professional connections.
 
+The datasets cover GitHub Universe and the Patch the Conference Hackathon.
+
+## Layout
+
+- `db/`: paraverse-graph, which loads a knowledge-base dataset into FalkorDB and serves
+  it through a read-only web browser, a JSON API and a CLI, with a Swift client in
+  `db/clients/swift/`. It can load any dataset in the same softschema format.
+- `vendor/`: datasets mounted as git submodules, one per conference.
+  `vendor/universe2026-md` is the GitHub Universe dataset
+  ([universe2026-md](https://github.com/jlevy/universe2026-md)): softschema records,
+  schemas and the crawl pipeline.
+  `vendor/ptc2026-md` is the
+  [Patch the Conference dataset](https://github.com/jlevy/ptc2026-md), with cited public
+  profiles of the judges and host, professional work, organizations, schemas, graph
+  exports and an offline build pipeline.
+
+## Getting the Data
+
+The datasets are git submodules.
+Clone with `git clone --recurse-submodules`, or run `git submodule update --init` in an
+existing clone.
+
+To browse the hackathon dataset, run `make install` and
+`make load serve DATASET=ptc2026-md` from `db/`. Each dataset uses its own graph, so
+loading the hackathon preserves the Universe graph.
+The browser’s **Datasets** control can select either dataset or combine both in one
+view. People retain their event roles and links in the combined graph.
+
 ## Data Policy
 
 Everything in this repository is public.
 Read the [data policy](docs/data-policy.md) before adding or changing data.
 To have your data removed, open an issue or contact a maintainer.
+
+## Docs
+
+Design docs, research and plans are indexed in [docs/README.md](docs/README.md).
 
 ## Contributing
 
